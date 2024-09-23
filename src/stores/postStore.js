@@ -8,14 +8,15 @@ export const usePostStore = defineStore("postStore", {
     selectedPost: null,
     isModalOpen: false,
     comments: [],
-    isLoading: false, // Loading state
+    isLoadingPosts: false, // Postları yüklerken kullanacağımız loading state
+    isLoadingModal: false, // Modal içeriği yüklenirken kullanacağımız loading state
   }),
 
   actions: {
     // Postları fetch etme
     async fetchPosts(userId) {
       this.posts = []; // Posts'u sıfırla
-      this.isLoading = true; // Loading başlasın
+      this.isLoadingPosts = true; // Postlar yüklenirken loading başlasın
       try {
         const response = await axios.get(
           `https://jsonplaceholder.typicode.com/posts?userId=${userId}`,
@@ -24,7 +25,7 @@ export const usePostStore = defineStore("postStore", {
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
-        this.isLoading = false; // Veri yüklendiğinde loading biter
+        this.isLoadingPosts = false; // Postlar yüklendiğinde loading biter
       }
     },
 
@@ -32,7 +33,7 @@ export const usePostStore = defineStore("postStore", {
     openModal(post) {
       this.selectedPost = post;
       this.isModalOpen = true;
-      this.isLoading = true; // Modal açılınca loading başlasın
+      this.isLoadingModal = true; // Modal açılınca loading başlasın
       this.fetchComments(post.id);
     },
 
@@ -46,7 +47,7 @@ export const usePostStore = defineStore("postStore", {
     // Posta ait yorumları getirme
     async fetchComments(postId) {
       this.comments = []; // Yorumları sıfırla
-      this.isLoading = true; // Yorumlar yüklenirken loading başlasın
+      this.isLoadingModal = true; // Yorumlar yüklenirken loading başlasın
       try {
         const response = await axios.get(
           `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
@@ -55,7 +56,7 @@ export const usePostStore = defineStore("postStore", {
       } catch (error) {
         console.error("Failed to fetch comments:", error);
       } finally {
-        this.isLoading = false; // Yorumlar yüklendiğinde loading biter
+        this.isLoadingModal = false; // Yorumlar yüklendiğinde loading biter
       }
     },
   },

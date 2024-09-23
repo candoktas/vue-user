@@ -3,7 +3,7 @@
     <GoHome />
     <div class="mt-10">
       <!-- Skeleton loader -->
-      <div v-if="postStore.isLoading">
+      <div v-if="postStore.isLoadingPosts && !postStore.isModalOpen">
         <ul>
           <li
             v-for="n in 5"

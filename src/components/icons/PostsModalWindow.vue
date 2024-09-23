@@ -14,9 +14,9 @@
         <CloseIcon />
       </button>
 
-      <!-- Loading durumu -->
+      <!-- Modal Yükleniyorsa Spinner -->
       <div
-        v-if="postStore.isLoading"
+        v-if="postStore.isLoadingModal"
         class="flex justify-center items-center h-full"
       >
         <div
@@ -24,7 +24,7 @@
         ></div>
       </div>
 
-      <!-- İçerik yüklenmişse -->
+      <!-- Modal Yüklendiyse İçerik -->
       <div v-else class="flex-col">
         <!-- Sol Post Başlığı ve Body -->
         <div class="flex items-center justify-between mb-10">
