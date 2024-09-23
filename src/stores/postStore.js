@@ -1,4 +1,3 @@
-// stores/postStore.js
 import { defineStore } from "pinia";
 import axios from "axios";
 
@@ -15,8 +14,8 @@ export const usePostStore = defineStore("postStore", {
   actions: {
     // Postları fetch etme
     async fetchPosts(userId) {
-      this.posts = []; // Posts'u sıfırla
-      this.isLoadingPosts = true; // Postlar yüklenirken loading başlasın
+      this.posts = [];
+      this.isLoadingPosts = true;
       try {
         const response = await axios.get(
           `https://jsonplaceholder.typicode.com/posts?userId=${userId}`,
@@ -25,7 +24,7 @@ export const usePostStore = defineStore("postStore", {
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
-        this.isLoadingPosts = false; // Postlar yüklendiğinde loading biter
+        this.isLoadingPosts = false;
       }
     },
 
@@ -33,7 +32,7 @@ export const usePostStore = defineStore("postStore", {
     openModal(post) {
       this.selectedPost = post;
       this.isModalOpen = true;
-      this.isLoadingModal = true; // Modal açılınca loading başlasın
+      this.isLoadingModal = true;
       this.fetchComments(post.id);
     },
 
@@ -44,19 +43,39 @@ export const usePostStore = defineStore("postStore", {
       this.comments = [];
     },
 
-    // Posta ait yorumları getirme
+    // Posta ait yorumları ve avatarları fetch etme ve avatarları yüklenmesini bekleme
     async fetchComments(postId) {
-      this.comments = []; // Yorumları sıfırla
-      this.isLoadingModal = true; // Yorumlar yüklenirken loading başlasın
+      this.comments = [];
+      this.isLoadingModal = true;
       try {
         const response = await axios.get(
           `https://jsonplaceholder.typicode.com/comments?postId=${postId}`,
         );
-        this.comments = response.data;
+        const comments = response.data.map((comment) => ({
+          ...comment,
+          avatarUrl: `https://i.pravatar.cc/40?u=${comment.email}`,
+        }));
+
+        // Avatarların yüklenmesini Promise.all ile bekle
+        const avatarPromises = comments.map(
+          (comment) =>
+            new Promise((resolve) => {
+              const img = new Image();
+              img.src = comment.avatarUrl;
+              img.onload = () => resolve();
+              img.onerror = () => resolve(); // Hata olsa bile devam et
+            }),
+        );
+
+        // Tüm avatarların yüklenmesini bekle
+        await Promise.all(avatarPromises);
+
+        // Avatarlar yüklendikten sonra yorumları kaydet
+        this.comments = comments;
       } catch (error) {
-        console.error("Failed to fetch comments:", error);
+        console.error("Failed to fetch comments and avatars", error);
       } finally {
-        this.isLoadingModal = false; // Yorumlar yüklendiğinde loading biter
+        this.isLoadingModal = false; // Yükleme tamamlandı
       }
     },
   },

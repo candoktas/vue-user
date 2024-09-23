@@ -51,7 +51,7 @@
               >
                 <div class="flex space-x-4 mb-10">
                   <img
-                    :src="'https://i.pravatar.cc/40?u=' + comment.email"
+                    :src="comment.avatarUrl"
                     class="rounded-full w-10 h-10"
                     alt="User Avatar"
                   />
