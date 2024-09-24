@@ -74,8 +74,8 @@
 </template>
 
 <script setup>
-import { usePostStore } from "../../stores/postStore.js";
-import CloseIcon from "./CloseIcon.vue";
+import { usePostStore } from "../stores/postStore.js";
+import CloseIcon from "./icons/CloseIcon.vue";
 
 const postStore = usePostStore();
 </script>

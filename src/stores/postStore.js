@@ -54,7 +54,17 @@ export const usePostStore = defineStore("postStore", {
       this.comments = [];
     },
 
+    // Yorumları fetch edip localStorage'a kaydetme
     async fetchComments(postId) {
+      const cachedComments = JSON.parse(
+        localStorage.getItem(`comments_post_${postId}`),
+      );
+      if (cachedComments) {
+        this.comments = cachedComments; // Eğer localStorage'da varsa oradan al
+        this.isLoadingModal = false;
+        return;
+      }
+
       this.comments = [];
       this.isLoadingModal = true;
       try {
@@ -78,6 +88,12 @@ export const usePostStore = defineStore("postStore", {
         );
 
         await Promise.all(avatarPromises);
+
+        // Yorumları ve avatarları localStorage'a kaydet
+        localStorage.setItem(
+          `comments_post_${postId}`,
+          JSON.stringify(comments),
+        );
 
         this.comments = comments;
       } catch (error) {

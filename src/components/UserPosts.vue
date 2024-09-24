@@ -66,7 +66,7 @@ import { useRoute } from "vue-router";
 import { usePostStore } from "../stores/postStore.js";
 import GoHome from "./GoHome.vue";
 import ForwardIcon from "./icons/ForwardIcon.vue";
-import PostsModalWindow from "./icons/PostsModalWindow.vue";
+import PostsModalWindow from "./PostsModalWindow.vue";
 
 const route = useRoute();
 const postStore = usePostStore();

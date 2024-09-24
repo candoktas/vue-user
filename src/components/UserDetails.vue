@@ -22,7 +22,7 @@
             }}
           </h1>
           <p
-            class="text-sm text-subtitle font-light"
+            class="text-sm text-subtitle font-light underline"
             v-if="!userStore.isLoadingUsers"
           >
             {{ userStore.selectedUser.email }}
@@ -51,7 +51,7 @@
               "
             ></span>
 
-            <ChecklistIcon />
+            <ChecklistIcon class="stroke-primary" />
             <router-link
               :to="{
                 name: 'UserTodos',
@@ -80,7 +80,7 @@
               "
             ></span>
 
-            <PostsIcon />
+            <PostsIcon class="stroke-primary" />
             <router-link
               :to="{
                 name: 'UserPosts',
@@ -109,7 +109,7 @@
               "
             ></span>
 
-            <AlbumsIcon />
+            <AlbumsIcon class="stroke-primary" />
             <router-link
               :to="{
                 name: 'UserAlbums',
