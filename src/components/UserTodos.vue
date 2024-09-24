@@ -3,7 +3,7 @@
     <GoHome />
     <div class="mt-28">
       <!-- Skeleton loader -->
-      <div v-if="isLoading">
+      <div v-if="userStore.isLoadingTodos">
         <ul>
           <li v-for="n in 5" :key="n" class="flex pl-6 p-3 items-center gap-4">
             <div class="w-6 h-6 rounded-md bg-gray-300 animate-pulse"></div>
@@ -17,12 +17,16 @@
       <!-- Todos Yüklendiğinde -->
       <ul v-else>
         <li
-          v-for="todo in todos"
+          v-for="todo in userStore.todos"
           :key="todo.id"
           class="flex pl-6 p-3 items-center gap-4"
         >
           <label class="custom-checkbox flex items-center">
-            <input type="checkbox" :checked="todo.completed" />
+            <input
+              type="checkbox"
+              :checked="todo.completed"
+              @change="toggleTodo(todo)"
+            />
             <span class="checkmark"></span>
           </label>
           <span class="text-subtitle text-sm font-normal">{{
@@ -35,50 +39,30 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
+import { onMounted } from "vue";
+import { useUserStore } from "../stores/userStore";
 import { useRoute } from "vue-router";
 import GoHome from "./GoHome.vue";
 
-const todos = ref([]);
-const isLoading = ref(true);
+const userStore = useUserStore();
 const route = useRoute();
 
-onMounted(async () => {
-  // İlk olarak, localStorage'da todos verileri var mı diye kontrol et
-  const cachedTodos = localStorage.getItem(`todos_user_${route.params.id}`);
-
-  if (cachedTodos) {
-    // Eğer localStorage'da veri varsa, onu kullan
-    todos.value = JSON.parse(cachedTodos);
-    isLoading.value = false;
-  } else {
-    // Eğer localStorage'da veri yoksa, API'den veriyi çek ve localStorage'a kaydet
-    try {
-      const response = await axios.get(
-        `https://jsonplaceholder.typicode.com/todos?userId=${route.params.id}`,
-      );
-      todos.value = response.data;
-      localStorage.setItem(
-        `todos_user_${route.params.id}`,
-        JSON.stringify(todos.value),
-      ); // Veriyi localStorage'a kaydet
-    } catch (error) {
-      console.error("Failed to load todos", error);
-    } finally {
-      isLoading.value = false; // Yükleme bittiğinde loading durumu kapatılır
-    }
-  }
+onMounted(() => {
+  userStore.fetchTodos(route.params.id); // Todos verisini store'dan çekiyoruz
 });
+
+const toggleTodo = (todo) => {
+  const updatedTodo = { ...todo, completed: !todo.completed };
+  userStore.updateTodo(updatedTodo);
+};
 </script>
 
 <style scoped>
-/* Gizli checkbox */
+/* Checkbox'ı yeniden yapmak için yazıldı */
 .custom-checkbox input[type="checkbox"] {
   display: none;
 }
 
-/* Custom checkbox stil */
 .custom-checkbox .checkmark {
   display: inline-block;
   width: 18px;
@@ -93,13 +77,11 @@ onMounted(async () => {
     border-color 0.2s ease;
 }
 
-/* Checkbox işaretlendiğinde arka plan ve kenarlık */
 .custom-checkbox input[type="checkbox"]:checked + .checkmark {
   background-color: #6750a4;
   border-color: #6750a4;
 }
 
-/* Check işareti (::after pseudo-element) */
 .custom-checkbox .checkmark::after {
   content: "";
   position: absolute;
@@ -114,13 +96,12 @@ onMounted(async () => {
   transition: opacity 0.2s ease;
 }
 
-/* Checkbox işaretlendiğinde check işareti görünür hale gelir */
 .custom-checkbox input[type="checkbox"]:checked + .checkmark::after {
   opacity: 1;
 }
 
 .custom-checkbox .checkmark:hover,
 .custom-checkbox input[type="checkbox"]:focus + .checkmark {
-  border-color: mediumpurple; /* Mor renk */
+  border-color: mediumpurple;
 }
 </style>

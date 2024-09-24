@@ -4,7 +4,8 @@ import axios from "axios";
 export const useAlbumStore = defineStore("albumStore", {
   state: () => ({
     albums: JSON.parse(localStorage.getItem("albums")) || [],
-    selectedAlbumPhotos: [],
+    selectedAlbumPhotos:
+      JSON.parse(localStorage.getItem("selectedAlbumPhotos")) || [],
     isLoadingAlbums: false,
     isLoadingPhotos: false,
   }),
@@ -49,6 +50,14 @@ export const useAlbumStore = defineStore("albumStore", {
     },
 
     async fetchAlbumById(albumId) {
+      const cachedPhotos = JSON.parse(
+        localStorage.getItem(`photos_album_${albumId}`),
+      );
+      if (cachedPhotos) {
+        this.selectedAlbumPhotos = cachedPhotos; // Eğer localStorage'da varsa oradan al
+        return;
+      }
+
       this.selectedAlbumPhotos = [];
       this.isLoadingPhotos = true;
       try {
@@ -56,6 +65,12 @@ export const useAlbumStore = defineStore("albumStore", {
           `https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`,
         );
         this.selectedAlbumPhotos = response.data;
+
+        // Fotoğrafları localStorage'a kaydet
+        localStorage.setItem(
+          `photos_album_${albumId}`,
+          JSON.stringify(this.selectedAlbumPhotos),
+        );
       } catch (error) {
         console.error("Error fetching album photos:", error);
       } finally {
