@@ -45,15 +45,29 @@ const isLoading = ref(true);
 const route = useRoute();
 
 onMounted(async () => {
-  try {
-    const response = await axios.get(
-      `https://jsonplaceholder.typicode.com/todos?userId=${route.params.id}`,
-    );
-    todos.value = response.data;
-  } catch (error) {
-    console.error("Failed to load todos", error);
-  } finally {
-    isLoading.value = false; // Yükleme bittiğinde loading durumu kapatılır
+  // İlk olarak, localStorage'da todos verileri var mı diye kontrol et
+  const cachedTodos = localStorage.getItem(`todos_user_${route.params.id}`);
+
+  if (cachedTodos) {
+    // Eğer localStorage'da veri varsa, onu kullan
+    todos.value = JSON.parse(cachedTodos);
+    isLoading.value = false;
+  } else {
+    // Eğer localStorage'da veri yoksa, API'den veriyi çek ve localStorage'a kaydet
+    try {
+      const response = await axios.get(
+        `https://jsonplaceholder.typicode.com/todos?userId=${route.params.id}`,
+      );
+      todos.value = response.data;
+      localStorage.setItem(
+        `todos_user_${route.params.id}`,
+        JSON.stringify(todos.value),
+      ); // Veriyi localStorage'a kaydet
+    } catch (error) {
+      console.error("Failed to load todos", error);
+    } finally {
+      isLoading.value = false; // Yükleme bittiğinde loading durumu kapatılır
+    }
   }
 });
 </script>

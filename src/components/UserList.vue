@@ -1,27 +1,46 @@
 <template>
   <div class="w-full">
     <h1 class="text-xl font-semibold mb-4 pl-4">All users</h1>
-    <div class="flex flex-wrap gap-4">
-      <UserCard v-for="user in users" :key="user.id" :user="user" />
+
+    <!-- Skeleton Loader -->
+    <div v-if="userStore.isLoadingUsers" class="flex gap-4">
+      <div
+        v-for="n in 3"
+        :key="n"
+        class="border border-gray-300 rounded-lg shadow-md p-4 w-1/3 h-96"
+      >
+        <!-- Avatar için skeleton -->
+        <div
+          class="bg-gray-300 rounded-full w-20 h-20 mx-auto mb-4 animate-pulse"
+        ></div>
+        <!-- Kullanıcı adı için skeleton -->
+        <div
+          class="bg-gray-300 h-4 w-3/4 mx-auto rounded-lg animate-pulse mb-2"
+        ></div>
+        <!-- Kullanıcı emaili için skeleton -->
+        <div
+          class="bg-gray-300 h-4 w-1/2 mx-auto rounded-lg animate-pulse"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Kullanıcılar yüklendikten sonra gösterilecek kısım -->
+    <div v-else class="flex flex-wrap gap-4">
+      <UserCard v-for="user in userStore.users" :key="user.id" :user="user" />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import axios from 'axios'
-import UserCard from './UserCard.vue'
+import { onMounted } from "vue";
+import { useUserStore } from "../stores/userStore";
+import UserCard from "./UserCard.vue";
 
-const users = ref([])
+const userStore = useUserStore();
 
-onMounted(async () => {
-  try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users')
-    users.value = response.data
-  } catch (error) {
-    console.error(error)
-  }
-})
+onMounted(() => {
+  userStore.fetchUsers(); // Kullanıcıları store'dan çekiyoruz
+});
 </script>
 
 <style scoped>
