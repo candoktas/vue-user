@@ -2,9 +2,11 @@
   <div class="flex min-h-screen">
     <!-- Sol Sidebar -->
     <aside
-      class="w-[18%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
+      class="w-[16%] min-w-28 bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
     >
-      <div class="mb-4 flex space-x-6 items-center p-4">
+      <div
+        class="mb-4 flex space-x-0 items-center p-4 flex-wrap justify-center xl:flex-nowrap xl:justify-start xl:space-x-6"
+      >
         <!-- Kullanıcı Avatarı -->
         <img
           v-if="!userStore.isLoadingUsers && userStore.selectedUser"
@@ -13,8 +15,8 @@
           class="w-12 h-12 rounded-full"
         />
         <!-- Kullanıcı Bilgileri -->
-        <div class="flex-col">
-          <h1 class="text-lg text-title font-medium">
+        <div class="flex-col text-center xl:text-start">
+          <h1 class="text-sm md:text-lg text-title font-medium">
             {{
               userStore.isLoadingUsers
                 ? "Loading..."
@@ -22,7 +24,7 @@
             }}
           </h1>
           <p
-            class="text-sm text-subtitle font-light underline"
+            class="text-xs md:text-sm text-subtitle font-light underline"
             v-if="!userStore.isLoadingUsers"
           >
             {{ userStore.selectedUser.email }}
@@ -37,7 +39,7 @@
           <!-- Todos Menüsü -->
           <li
             :class="[
-              'relative text-lg flex items-center space-x-3 font-normal p-2 pl-6 transition duration-200 ease-in-out mb-4',
+              'relative text-sm md:text-lg flex items-center space-x-1 md:space-x-3 font-normal p-1 pl-3 md:p-2 md:pl-6 transition duration-200 ease-in-out mb-4',
               isActiveMenu('UserTodos')
                 ? 'bg-white text-primary'
                 : 'text-[#00000073] hover:bg-purple-100',
@@ -66,7 +68,7 @@
           <!-- Posts Menüsü -->
           <li
             :class="[
-              'relative text-lg flex items-center space-x-3 font-normal p-2 pl-6 transition duration-200 ease-in-out mb-4',
+              'relative text-sm md:text-lg flex items-center space-x-1 md:space-x-3 font-normal p-1 pl-3 md:p-2 md:pl-6 transition duration-200 ease-in-out mb-4',
               isActiveMenu('UserPosts')
                 ? 'bg-white text-primary'
                 : 'text-[#00000073] hover:bg-purple-100',
@@ -95,7 +97,7 @@
           <!-- Albums Menüsü -->
           <li
             :class="[
-              'relative text-lg flex items-center space-x-3 font-normal p-2 pl-6 transition duration-200 ease-in-out',
+              'relative text-sm md:text-lg flex items-center space-x-1 md:space-x-3 font-normal p-1 pl-3 md:p-2 md:pl-6 transition duration-200 ease-in-out',
               isActiveMenu('UserAlbums')
                 ? 'bg-white text-primary'
                 : 'text-[#00000073] hover:bg-purple-100',

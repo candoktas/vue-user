@@ -1,51 +1,57 @@
 <template>
   <div
-    class="bg-white w-[30%] min-w-80 border border-border shadow-md hover:shadow-2xl rounded-lg p-8 m-2 transition duration-200 ease-in-out cursor-pointer"
+    class="bg-white max-w-60 md:max-w-full min-w-52 lg:min-w-80 border border-border shadow-md hover:shadow-2xl rounded-lg p-4 m-2 lg:p-8 lg:m-2 transition duration-200 ease-in-out cursor-pointer"
     @click="goToUserDetails"
   >
-    <div class="flex items-center space-x-12">
+    <div class="flex items-center space-x-4 lg:space-x-8 w-full">
       <img
         :src="'https://i.pravatar.cc/150?u=' + user.id"
         alt="User Avatar"
-        class="w-24 h-24 rounded-full"
+        class="w-12 h-12 lg:w-24 lg:h-24 rounded-full"
       />
       <div>
-        <h2 class="text-lg text-title font-medium">{{ user.name }}</h2>
-        <p class="text-sm text-subtitle font-light">{{ user.email }}</p>
-        <p class="text-sm text-subtitle font-light">{{ user.phone }}</p>
+        <h2 class="text-sm lg:text-lg text-title font-medium">
+          {{ user.name }}
+        </h2>
+        <p class="text-xs lg:text-sm text-subtitle font-light break-all">
+          {{ user.email }}
+        </p>
+        <p class="text-xs lg:text-sm text-subtitle font-light">
+          {{ user.phone }}
+        </p>
       </div>
     </div>
     <div class="mt-10 space-y-6">
       <div class="flex flex-col space-y-2">
         <div
-          class="flex gap-3 text-sm font-medium text-title pl-1 items-center"
+          class="flex gap-3 text-xs lg:text-sm font-medium text-title pl-1 items-center"
         >
           <LocationIcon />
           <p>Location</p>
         </div>
-        <p class="flex text-sm text-subtitle font-light">
+        <p class="flex text-xs lg:text-sm text-subtitle font-light">
           <i class="fas fa-map-marker-alt mr-2"></i>{{ user.address.city }}
         </p>
       </div>
       <div class="flex flex-col space-y-2">
         <div
-          class="flex gap-3 text-sm font-medium text-title pl-1 items-center"
+          class="flex gap-3 text-xs lg:text-sm font-medium text-title pl-1 items-center"
         >
           <CompanyIcon />
           <p>Company</p>
         </div>
-        <p class="flex text-sm text-subtitle font-light">
+        <p class="flex text-xs lg:text-sm text-subtitle font-light">
           <i class="fas fa-building mr-2"></i>{{ user.company.name }}
         </p>
       </div>
       <div class="flex flex-col space-y-2">
         <div
-          class="flex gap-3 text-sm font-medium text-title pl-1 items-center"
+          class="flex gap-3 text-xs lg:text-sm font-medium text-title pl-1 items-center"
         >
           <WebsiteIcon />
           <p>Website</p>
         </div>
-        <p class="flex text-sm text-subtitle font-light">
+        <p class="flex text-xs lg:text-sm text-subtitle font-light">
           <i class="fas fa-globe mr-2"></i>{{ user.website }}
         </p>
       </div>

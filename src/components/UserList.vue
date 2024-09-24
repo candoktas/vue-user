@@ -25,7 +25,7 @@
     </div>
 
     <!-- Kullanıcılar yüklendikten sonra gösterilecek kısım -->
-    <div v-else class="flex flex-wrap gap-4">
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
       <UserCard v-for="user in userStore.users" :key="user.id" :user="user" />
     </div>
   </div>

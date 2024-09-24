@@ -4,7 +4,7 @@
     <!-- Sidebar -->
     <aside
       v-if="isHomePage"
-      class="w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
+      class="w-[20%] md:w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col sticky top-0 h-screen"
     >
       <nav class="flex-1">
         <ul class="space-y-4 mt-8">
@@ -12,10 +12,10 @@
             <!-- Users Menüsü -->
             <a
               href="#"
-              class="flex items-center space-x-2 font-normal p-2 pl-8 relative transition duration-200 ease-in-out"
+              class="flex items-center space-x-2 font-normal p-1 pl-2 md:p-2 md:pl-8 relative transition duration-200 ease-in-out"
               :class="
                 isUsersSelected
-                  ? 'bg-white text-purple-700'
+                  ? 'bg-white text-primary'
                   : 'text-gray-700 hover:bg-gray-200 hover:border-l-8 hover:border-gray-400'
               "
               @click="selectMenu('users')"
@@ -25,7 +25,9 @@
                 v-if="isUsersSelected"
               ></span>
               <UserIcon />
-              <span class="text-lg font-normal text-primary">Users</span>
+              <span class="text-sm md:text-lg font-normal text-primary"
+                >Users</span
+              >
             </a>
           </li>
         </ul>
@@ -36,7 +38,7 @@
     </aside>
 
     <!-- Main Content -->
-    <main :class="isHomePage ? 'flex-1 p-10 bg-white w-full' : 'w-full'">
+    <main :class="isHomePage ? 'flex-1 p-4 md:p-10 bg-white w-full' : 'w-full'">
       <router-view />
     </main>
   </div>
