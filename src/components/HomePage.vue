@@ -4,7 +4,7 @@
     <!-- Sidebar -->
     <aside
       v-if="isHomePage"
-      class="w-[20%] md:w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col sticky top-0 h-screen"
+      class="w-[20%] min-w-28 md:w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col sticky top-0 h-screen"
     >
       <nav class="flex-1">
         <ul class="space-y-4 mt-8">
@@ -32,8 +32,15 @@
           </li>
         </ul>
       </nav>
-      <div class="p-4 border-t">
-        <h2 class="text-xl font-bold">N2Mobil</h2>
+      <div
+        class="p-2 md:p-4 border-t flex items-center space-x-1 md:space-x-2 justify-center"
+      >
+        <img
+          src="../assets/logo.png"
+          alt="logo"
+          class="w-4 h-4 md:w-8 md:h-8"
+        />
+        <h2 class="text-sm md:text-xl text-subtitle font-bold">N2Mobil</h2>
       </div>
     </aside>
 

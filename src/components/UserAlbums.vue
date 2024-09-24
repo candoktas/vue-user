@@ -21,7 +21,10 @@
     </div>
 
     <!-- Albümler yüklendiğinde grid görüntüle -->
-    <div v-else class="grid grid-cols-3 gap-8 mt-10">
+    <div
+      v-else
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10"
+    >
       <div
         v-for="album in albumStore.albums"
         :key="album.id"

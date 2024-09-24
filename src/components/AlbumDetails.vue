@@ -11,7 +11,10 @@
     </div>
 
     <!-- Fotoğraflar Yüklendikten Sonra -->
-    <div v-else class="grid grid-cols-6 gap-6 mt-10">
+    <div
+      v-else
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mt-10"
+    >
       <div
         v-for="photo in albumStore.selectedAlbumPhotos"
         :key="photo.id"
