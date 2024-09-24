@@ -2,7 +2,7 @@
   <div class="flex min-h-screen">
     <!-- Sol Sidebar -->
     <aside
-      class="w-[16%] min-w-28 bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
+      class="w-[16%] min-w-28 bg-[#F5F5F5] border-r border-border shadow-md flex flex-col sticky top-0 h-screen"
     >
       <div
         class="mb-4 flex space-x-0 items-center p-4 flex-wrap justify-center xl:flex-nowrap xl:justify-start xl:space-x-6"
