@@ -3,7 +3,7 @@
   <div class="flex min-h-screen">
     <!-- Sol Sidebar -->
     <aside
-      class="w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
+      class="w-[18%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
     >
       <div class="mb-4 flex space-x-6 items-center p-4">
         <!-- Kullanıcı Avatarı -->

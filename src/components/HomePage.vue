@@ -4,7 +4,7 @@
     <!-- Sidebar -->
     <aside
       v-if="isHomePage"
-      class="w-[12%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
+      class="w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col"
     >
       <nav class="flex-1">
         <ul class="space-y-4 mt-8">

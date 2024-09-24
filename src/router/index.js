@@ -4,8 +4,9 @@ import DefaultLayout from "../components/HomePage.vue";
 import UserDetails from "../components/UserDetails.vue";
 import UserList from "../components/UserList.vue";
 import UserTodos from "../components/UserTodos.vue";
-import UserPosts from "../components/UserPosts.vue"; // Yeni import
-import UserAlbums from "../components/UserAlbums.vue"; // Yeni import
+import UserPosts from "../components/UserPosts.vue";
+import UserAlbums from "../components/UserAlbums.vue";
+import AlbumDetails from "../components/AlbumDetails.vue"; // Yeni import
 
 const routes = [
   {
@@ -43,6 +44,11 @@ const routes = [
         path: "albums",
         name: "UserAlbums",
         component: UserAlbums,
+      },
+      {
+        path: "albums/:albumId",
+        name: "AlbumDetails",
+        component: AlbumDetails, // Albüm detay sayfası
       },
     ],
   },
