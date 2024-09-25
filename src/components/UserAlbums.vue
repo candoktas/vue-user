@@ -2,7 +2,6 @@
   <div>
     <GoHome />
 
-    <!-- Skeleton Loader -->
     <div v-if="albumStore.isLoadingAlbums" class="grid grid-cols-3 gap-6 mt-10">
       <div
         v-for="n in 3"
@@ -20,7 +19,6 @@
       </div>
     </div>
 
-    <!-- Albümler yüklendiğinde grid görüntüle -->
     <div
       v-else
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mt-10"
@@ -31,7 +29,7 @@
         class="border border-gray-300 rounded-lg shadow-md p-4 cursor-pointer hover:shadow-2xl transition duration-200 ease-in-out"
         @click="goToAlbumDetails(album.id)"
       >
-        <div class="grid grid-cols-2 gap-2 mb-4">
+        <div class="grid grid-cols-2 mb-4">
           <img
             v-for="(photo, index) in album.photos.slice(0, 4)"
             :key="photo.id + '-' + index"
@@ -63,6 +61,6 @@ onMounted(() => {
 });
 
 const goToAlbumDetails = (albumId) => {
-  router.push({ name: "AlbumDetails", params: { albumId } }); // Albüm detayına yönlendir
+  router.push({ name: "AlbumDetails", params: { albumId } });
 };
 </script>

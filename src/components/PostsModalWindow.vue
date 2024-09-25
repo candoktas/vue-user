@@ -6,15 +6,13 @@
     <div
       class="bg-white w-[70%] h-[80%] rounded-xl p-6 overflow-y-auto relative"
     >
-      <!-- Kapatma Butonu (Sticky pozisyon) -->
       <button
         @click="postStore.closeModal"
-        class="text-gray-500 hover:text-gray-700 sticky top-0 right-0 z-50 float-right"
+        class="sticky top-1 right-0 z-50 float-right"
       >
-        <CloseIcon />
+        <CloseIcon class="stroke-title hover:stroke-primary" />
       </button>
 
-      <!-- Modal Yükleniyorsa Spinner -->
       <div
         v-if="postStore.isLoadingModal"
         class="flex justify-center items-center h-full"
@@ -24,9 +22,7 @@
         ></div>
       </div>
 
-      <!-- Modal Yüklendiyse İçerik -->
       <div v-else class="flex-col">
-        <!-- Sol Post Başlığı ve Body -->
         <div class="flex items-center justify-between mb-10">
           <h3 class="text-2xl text-title font-medium capitalize">
             {{ postStore.selectedPost.title }}
@@ -40,8 +36,7 @@
             </p>
           </div>
 
-          <!-- Sağ Yorumlar -->
-          <div class="w-1/3 overflow-y-auto pl-8">
+          <div class="w-2/5 overflow-y-auto pl-8">
             <h4 class="text-xl font-semibold text-title mb-10">Comments</h4>
             <ul>
               <li

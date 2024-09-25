@@ -16,7 +16,6 @@ import BackIcon from "./icons/BackIcon.vue";
 
 const router = useRouter();
 
-// Ana sayfaya yönlendirme
 const goHome = () => {
   router.push({ name: "UserList" });
 };

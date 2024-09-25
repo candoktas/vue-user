@@ -2,7 +2,6 @@
   <div>
     <GoHome />
     <div class="mt-28">
-      <!-- Skeleton loader -->
       <div v-if="userStore.isLoadingTodos">
         <ul>
           <li v-for="n in 5" :key="n" class="flex pl-6 p-3 items-center gap-4">
@@ -14,7 +13,6 @@
         </ul>
       </div>
 
-      <!-- Todos Yüklendiğinde -->
       <ul v-else>
         <li
           v-for="todo in userStore.todos"
@@ -48,7 +46,7 @@ const userStore = useUserStore();
 const route = useRoute();
 
 onMounted(() => {
-  userStore.fetchTodos(route.params.id); // Todos verisini store'dan çekiyoruz
+  userStore.fetchTodos(route.params.id);
 });
 
 const toggleTodo = (todo) => {
@@ -58,7 +56,6 @@ const toggleTodo = (todo) => {
 </script>
 
 <style scoped>
-/* Checkbox'ı yeniden yapmak için yazıldı */
 .custom-checkbox input[type="checkbox"] {
   display: none;
 }
@@ -68,7 +65,7 @@ const toggleTodo = (todo) => {
   width: 18px;
   height: 18px;
   background-color: #f3f3f3;
-  border: 2px solid #49454f; /* Mor renk */
+  border: 2px solid #49454f;
   border-radius: 2px;
   position: relative;
   cursor: pointer;

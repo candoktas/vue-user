@@ -1,7 +1,5 @@
-<!-- src/App.vue -->
 <template>
   <div :class="isHomePage ? 'flex min-h-screen' : ''">
-    <!-- Sidebar -->
     <aside
       v-if="isHomePage"
       class="w-[20%] min-w-28 md:w-[16%] bg-[#F5F5F5] border-r border-border shadow-md flex flex-col sticky top-0 h-screen"
@@ -9,7 +7,6 @@
       <nav class="flex-1">
         <ul class="space-y-4 mt-8">
           <li>
-            <!-- Users Menüsü -->
             <a
               href="#"
               class="flex items-center space-x-2 font-normal p-1 pl-2 md:p-2 md:pl-8 relative transition duration-200 ease-in-out"
@@ -44,7 +41,6 @@
       </div>
     </aside>
 
-    <!-- Main Content -->
     <main :class="isHomePage ? 'flex-1 p-4 md:p-10 bg-white w-full' : 'w-full'">
       <router-view />
     </main>
@@ -57,18 +53,13 @@ import { computed } from "vue";
 import UserIcon from "./icons/UserIcon.vue";
 import { useRoute } from "vue-router";
 
-// Pinia Store'u kullanma
 const menuStore = useMenuStore();
 const isUsersSelected = computed(() => menuStore.isUsersSelected);
 
-// Menü seçimi
 const selectMenu = (menu) => {
   menuStore.selectMenu(menu);
 };
 
-// Mevcut rotayı alıyoruz
 const route = useRoute();
-
-// Ana sayfada olup olmadığımızı kontrol ediyoruz
 const isHomePage = computed(() => route.name === "UserList");
 </script>

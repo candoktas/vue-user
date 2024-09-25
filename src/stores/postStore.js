@@ -17,7 +17,7 @@ export const usePostStore = defineStore("postStore", {
         localStorage.getItem(`posts_user_${userId}`),
       );
       if (cachedPosts) {
-        this.posts = cachedPosts; // Eğer localStorage'da varsa oradan al
+        this.posts = cachedPosts;
         return;
       }
 
@@ -31,7 +31,7 @@ export const usePostStore = defineStore("postStore", {
         localStorage.setItem(
           `posts_user_${userId}`,
           JSON.stringify(this.posts),
-        ); // LocalStorage'a kaydet
+        );
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
@@ -39,7 +39,6 @@ export const usePostStore = defineStore("postStore", {
       }
     },
 
-    // Seçilen postu set et ve modalı aç
     openModal(post) {
       this.selectedPost = post;
       this.isModalOpen = true;
@@ -47,20 +46,18 @@ export const usePostStore = defineStore("postStore", {
       this.fetchComments(post.id);
     },
 
-    // Modalı kapatma
     closeModal() {
       this.isModalOpen = false;
       this.selectedPost = null;
       this.comments = [];
     },
 
-    // Yorumları fetch edip localStorage'a kaydetme
     async fetchComments(postId) {
       const cachedComments = JSON.parse(
         localStorage.getItem(`comments_post_${postId}`),
       );
       if (cachedComments) {
-        this.comments = cachedComments; // Eğer localStorage'da varsa oradan al
+        this.comments = cachedComments;
         this.isLoadingModal = false;
         return;
       }
@@ -76,20 +73,18 @@ export const usePostStore = defineStore("postStore", {
           avatarUrl: `https://i.pravatar.cc/40?u=${comment.email}`,
         }));
 
-        // Avatarların yüklenmesini bekle
         const avatarPromises = comments.map(
           (comment) =>
             new Promise((resolve) => {
               const img = new Image();
               img.src = comment.avatarUrl;
               img.onload = () => resolve();
-              img.onerror = () => resolve(); // Hata olsa bile devam et
+              img.onerror = () => resolve();
             }),
         );
 
         await Promise.all(avatarPromises);
 
-        // Yorumları ve avatarları localStorage'a kaydet
         localStorage.setItem(
           `comments_post_${postId}`,
           JSON.stringify(comments),

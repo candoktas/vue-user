@@ -1,5 +1,17 @@
-# Vue 3 + Vite
+# User Detail Application - Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This project is a user detail application designed to help you access users' detail pages, view their posts, and see their activities.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Project Setup
+
+To run the project locally, use the following command:
+
+```bash
+npm run dev
+```
+
+## Technologies Used
+Vue.js 3: The progressive JavaScript framework
+Vite: Fast and efficient build tool
+Tailwind CSS: A utility-first CSS framework
+Pinia: The intuitive store for Vue.js

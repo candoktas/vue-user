@@ -2,7 +2,6 @@
   <div>
     <GoHome />
     <div class="mt-10">
-      <!-- Skeleton loader -->
       <div v-if="postStore.isLoadingPosts && !postStore.isModalOpen">
         <ul>
           <li
@@ -10,11 +9,9 @@
             :key="n"
             class="p-10 pt-4 border-b border-border flex flex-col"
           >
-            <!-- Başlık için skeleton -->
             <div
               class="h-6 bg-gray-300 rounded-md w-1/3 mb-4 animate-pulse"
             ></div>
-            <!-- Gövde için skeleton -->
             <div
               class="h-4 bg-gray-300 rounded-md w-1/2 mb-2 animate-pulse"
             ></div>
@@ -23,14 +20,12 @@
         </ul>
       </div>
 
-      <!-- Postlar Yüklendiğinde -->
       <div v-else>
         <div
           v-for="post in postStore.posts"
           :key="post.id"
-          class="p-10 pt-4 border-b border-border flex flex-col"
+          class="px-10 pt-4 pb-6 border-b border-border flex flex-col"
         >
-          <!-- Post İçeriği -->
           <div class="space-y-4">
             <h3 class="text-xl text-title font-medium mb-2 capitalize">
               {{ post.title }}
@@ -40,7 +35,7 @@
             </p>
           </div>
           <div
-            class="flex items-center space-x-6 text-title text-sm font-normal cursor-pointer hover:text-primary w-auto ml-auto"
+            class="flex items-center space-x-6 text-title text-sm font-normal cursor-pointer hover:text-primary w-auto mt-2 ml-auto"
             @click="postStore.openModal(post)"
           >
             <span class="font-semibold">See More</span>
@@ -49,7 +44,6 @@
         </div>
       </div>
 
-      <!-- Modal Component -->
       <PostsModalWindow
         v-if="postStore.isModalOpen"
         :showModal="postStore.isModalOpen"
@@ -71,7 +65,6 @@ import PostsModalWindow from "./PostsModalWindow.vue";
 const route = useRoute();
 const postStore = usePostStore();
 
-// Postları çekme
 onMounted(() => {
   postStore.fetchPosts(route.params.id);
 });

@@ -1,4 +1,3 @@
-// src/router/index.js
 import { createRouter, createWebHistory } from "vue-router";
 import DefaultLayout from "../components/HomePage.vue";
 import UserDetails from "../components/UserDetails.vue";
@@ -6,7 +5,7 @@ import UserList from "../components/UserList.vue";
 import UserTodos from "../components/UserTodos.vue";
 import UserPosts from "../components/UserPosts.vue";
 import UserAlbums from "../components/UserAlbums.vue";
-import AlbumDetails from "../components/AlbumDetails.vue"; // Yeni import
+import AlbumDetails from "../components/AlbumDetails.vue";
 
 const routes = [
   {
@@ -48,7 +47,7 @@ const routes = [
       {
         path: "albums/:albumId",
         name: "AlbumDetails",
-        component: AlbumDetails, // Albüm detay sayfası
+        component: AlbumDetails,
       },
     ],
   },

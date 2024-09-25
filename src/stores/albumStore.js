@@ -16,7 +16,7 @@ export const useAlbumStore = defineStore("albumStore", {
         localStorage.getItem(`albums_user_${userId}`),
       );
       if (cachedAlbums) {
-        this.albums = cachedAlbums; // Eğer localStorage'da varsa oradan al
+        this.albums = cachedAlbums;
         return;
       }
 
@@ -36,7 +36,6 @@ export const useAlbumStore = defineStore("albumStore", {
           );
         });
 
-        // Albümleri localStorage'a kaydet
         localStorage.setItem(
           `albums_user_${userId}`,
           JSON.stringify(fetchedAlbums.data),
@@ -54,7 +53,7 @@ export const useAlbumStore = defineStore("albumStore", {
         localStorage.getItem(`photos_album_${albumId}`),
       );
       if (cachedPhotos) {
-        this.selectedAlbumPhotos = cachedPhotos; // Eğer localStorage'da varsa oradan al
+        this.selectedAlbumPhotos = cachedPhotos;
         return;
       }
 
@@ -66,7 +65,6 @@ export const useAlbumStore = defineStore("albumStore", {
         );
         this.selectedAlbumPhotos = response.data;
 
-        // Fotoğrafları localStorage'a kaydet
         localStorage.setItem(
           `photos_album_${albumId}`,
           JSON.stringify(this.selectedAlbumPhotos),

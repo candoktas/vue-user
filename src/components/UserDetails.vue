@@ -1,21 +1,18 @@
 <template>
   <div class="flex min-h-screen">
-    <!-- Sol Sidebar -->
     <aside
-      class="w-[16%] min-w-28 bg-[#F5F5F5] border-r border-border shadow-md flex flex-col justify-between sticky top-0 h-screen"
+      class="w-[20%] min-w-28 bg-[#F5F5F5] border-r border-border shadow-md flex flex-col justify-between sticky top-0 h-screen"
     >
       <div>
         <div
           class="mb-4 flex space-x-0 items-center p-4 flex-wrap justify-center xl:flex-nowrap xl:justify-start xl:space-x-6"
         >
-          <!-- Kullanıcı Avatarı -->
           <img
             v-if="!userStore.isLoadingUsers && userStore.selectedUser"
             :src="'https://i.pravatar.cc/150?u=' + userStore.selectedUser.id"
             alt="User Avatar"
             class="w-12 h-12 rounded-full"
           />
-          <!-- Kullanıcı Bilgileri -->
           <div class="flex-col text-center xl:text-start">
             <h1 class="text-sm md:text-lg text-title font-medium">
               {{
@@ -25,7 +22,7 @@
               }}
             </h1>
             <p
-              class="text-xs md:text-sm text-subtitle font-light underline"
+              class="text-xs md:text-sm text-subtitle font-light underline underline-offset-2 break-all"
               v-if="!userStore.isLoadingUsers"
             >
               {{ userStore.selectedUser.email }}
@@ -40,7 +37,6 @@
           class="flex-1"
         >
           <ul>
-            <!-- Todos Menüsü -->
             <li
               :class="[
                 'relative text-sm md:text-lg flex items-center space-x-1 md:space-x-3 font-normal p-1 pl-3 md:p-2 md:pl-6 transition duration-200 ease-in-out mb-4',
@@ -49,7 +45,6 @@
                   : 'text-[#00000073] hover:bg-purple-100',
               ]"
             >
-              <!-- Sol Taraftaki İşaret -->
               <span
                 class="absolute left-0 top-0 h-full w-1.5 rounded-r-xl"
                 :class="
@@ -69,7 +64,6 @@
               </router-link>
             </li>
 
-            <!-- Posts Menüsü -->
             <li
               :class="[
                 'relative text-sm md:text-lg flex items-center space-x-1 md:space-x-3 font-normal p-1 pl-3 md:p-2 md:pl-6 transition duration-200 ease-in-out mb-4',
@@ -78,7 +72,6 @@
                   : 'text-[#00000073] hover:bg-purple-100',
               ]"
             >
-              <!-- Sol Taraftaki İşaret -->
               <span
                 class="absolute left-0 top-0 h-full w-1.5 rounded-r-xl"
                 :class="
@@ -98,7 +91,6 @@
               </router-link>
             </li>
 
-            <!-- Albums Menüsü -->
             <li
               :class="[
                 'relative text-sm md:text-lg flex items-center space-x-1 md:space-x-3 font-normal p-1 pl-3 md:p-2 md:pl-6 transition duration-200 ease-in-out',
@@ -107,7 +99,6 @@
                   : 'text-[#00000073] hover:bg-purple-100',
               ]"
             >
-              <!-- Sol Taraftaki İşaret -->
               <span
                 class="absolute left-0 top-0 h-full w-1.5 rounded-r-xl"
                 :class="
@@ -130,7 +121,6 @@
         </nav>
       </div>
 
-      <!-- En Alta Dayanan Kısım -->
       <div
         class="p-2 md:p-4 border-t flex items-center space-x-1 md:space-x-2 justify-center"
       >
@@ -143,9 +133,7 @@
       </div>
     </aside>
 
-    <!-- Sağ İçerik -->
     <main class="flex-1 p-6">
-      <!-- Yükleniyor Spinner'ı -->
       <div
         v-if="userStore.isLoadingUsers"
         class="flex items-center justify-center h-full"
@@ -154,7 +142,6 @@
           class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500"
         ></div>
       </div>
-      <!-- İçerik -->
       <div v-else>
         <router-view />
       </div>
@@ -173,12 +160,10 @@ import AlbumsIcon from "./icons/AlbumsIcon.vue";
 const route = useRoute();
 const userStore = useUserStore();
 
-// Aktif menü öğesini belirleyen fonksiyon
 const isActiveMenu = (menuName) => {
   return route.name === menuName;
 };
 
-// Kullanıcıyı store üzerinden fetch ediyoruz
 onMounted(() => {
   const selectedUser = userStore.selectedUser;
 

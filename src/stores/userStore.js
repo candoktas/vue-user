@@ -3,15 +3,15 @@ import axios from "axios";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
-    users: JSON.parse(localStorage.getItem("users")) || [], // LocalStorage'dan yükle
+    users: JSON.parse(localStorage.getItem("users")) || [],
     selectedUser: JSON.parse(localStorage.getItem("selectedUser")) || null,
-    todos: JSON.parse(localStorage.getItem("todos")) || [], // LocalStorage'dan todos yükle
+    todos: JSON.parse(localStorage.getItem("todos")) || [],
     isLoadingUsers: false,
-    isLoadingTodos: false, // Todos için loading state
+    isLoadingTodos: false,
   }),
   actions: {
     async fetchUsers() {
-      if (this.users.length > 0) return; // Eğer localStorage'da varsa yeniden yükleme
+      if (this.users.length > 0) return;
 
       this.isLoadingUsers = true;
       try {
@@ -19,7 +19,7 @@ export const useUserStore = defineStore("user", {
           "https://jsonplaceholder.typicode.com/users",
         );
         this.users = response.data;
-        localStorage.setItem("users", JSON.stringify(this.users)); // LocalStorage'a kaydet
+        localStorage.setItem("users", JSON.stringify(this.users));
       } catch (error) {
         console.error("Failed to fetch users:", error);
       } finally {
@@ -28,20 +28,19 @@ export const useUserStore = defineStore("user", {
     },
     setSelectedUser(user) {
       this.selectedUser = user;
-      localStorage.setItem("selectedUser", JSON.stringify(user)); // LocalStorage'a kaydet
+      localStorage.setItem("selectedUser", JSON.stringify(user));
     },
     clearSelectedUser() {
       this.selectedUser = null;
-      localStorage.removeItem("selectedUser"); // LocalStorage'dan sil
+      localStorage.removeItem("selectedUser");
     },
 
-    // Todos fetch etme işlemi
     async fetchTodos(userId) {
       this.isLoadingTodos = true;
       const cachedTodos = localStorage.getItem(`todos_user_${userId}`);
 
       if (cachedTodos) {
-        this.todos = JSON.parse(cachedTodos); // LocalStorage'dan yükle
+        this.todos = JSON.parse(cachedTodos);
         this.isLoadingTodos = false;
       } else {
         try {
@@ -52,7 +51,7 @@ export const useUserStore = defineStore("user", {
           localStorage.setItem(
             `todos_user_${userId}`,
             JSON.stringify(this.todos),
-          ); // LocalStorage'a kaydet
+          );
         } catch (error) {
           console.error("Failed to fetch todos:", error);
         } finally {
@@ -61,7 +60,6 @@ export const useUserStore = defineStore("user", {
       }
     },
 
-    // Todos'u güncelleme ve localStorage'a kaydetme
     updateTodo(todo) {
       const index = this.todos.findIndex((t) => t.id === todo.id);
       if (index !== -1) {

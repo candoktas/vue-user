@@ -64,25 +64,17 @@ import LocationIcon from "./icons/LocationIcon.vue";
 import CompanyIcon from "./icons/CompanyIcon.vue";
 import WebsiteIcon from "./icons/WebsiteIcon.vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/userStore.js"; // userStore'u import edin
+import { useUserStore } from "../stores/userStore.js";
 
-// Props ile gelen user objesi
 const props = defineProps({
   user: Object,
 });
 
 const router = useRouter();
-const userStore = useUserStore(); // userStore'u kullanın
+const userStore = useUserStore();
 
-// Yönlendirme fonksiyonu
 const goToUserDetails = () => {
-  // Seçilen kullanıcıyı store'a kaydediyoruz
   userStore.setSelectedUser(props.user);
-  // UserDetails sayfasına yönlendiriyoruz
   router.push(`/user/${props.user.id}`);
 };
 </script>
-
-<style scoped>
-/* Kart tasarımı için stiller */
-</style>
